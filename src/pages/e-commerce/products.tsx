@@ -25,6 +25,7 @@ import {
 } from "react-icons/hi";
 import NavbarSidebarLayout from "../../layouts/navbar-sidebar";
 import { Pagination } from "../users/list";
+// import {deleteProductHandler} from "../../services/crudsFunction";
 
 const EcommerceProductsPage: FC = function () {
   return (
@@ -344,6 +345,8 @@ const EditProductModal: FC = function ({ product }: any) {
 const DeleteProductModal: FC = function () {
   const [isOpen, setOpen] = useState(false);
 
+  
+
   return (
     <>
       <Button color="failure" onClick={() => setOpen(!isOpen)}>
@@ -387,6 +390,7 @@ const ProductsTable: FC = function () {
       })
       .catch((error) => console.log(error));
   }, []);
+  
 
   const productListHandle = products.map((product: any) => (
     <Table.Row
