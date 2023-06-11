@@ -209,7 +209,7 @@ const AddProductModal: FC = function () {
   );
 };
 
-const EditProductModal: FC = function () {
+const EditProductModal: FC = function ({ product }: any) {
   const [isOpen, setOpen] = useState(false);
 
   return (
@@ -232,6 +232,7 @@ const EditProductModal: FC = function () {
                   name="productName"
                   placeholder='Apple iMac 27"'
                   className="mt-1"
+                  value={product.title}
                 />
               </div>
               <div>
@@ -241,6 +242,7 @@ const EditProductModal: FC = function () {
                   name="category"
                   placeholder="Electronics"
                   className="mt-1"
+                  value={product.category}
                 />
               </div>
               <div>
@@ -250,6 +252,7 @@ const EditProductModal: FC = function () {
                   name="brand"
                   placeholder="Apple"
                   className="mt-1"
+                  value={product.brand}
                 />
               </div>
               <div>
@@ -260,6 +263,7 @@ const EditProductModal: FC = function () {
                   type="number"
                   placeholder="$2300"
                   className="mt-1"
+                  value={product.price}
                 />
               </div>
               <div className="lg:col-span-2">
@@ -270,6 +274,7 @@ const EditProductModal: FC = function () {
                   placeholder="e.g. 3.8GHz 8-core 10th-generation Intel Core i7 processor, Turbo Boost up to 5.0GHz, Ram 16 GB DDR4 2300Mhz"
                   rows={6}
                   className="mt-1"
+                  value={product.description}
                 />
               </div>
               <div className="flex space-x-5">
@@ -383,7 +388,7 @@ const ProductsTable: FC = function () {
       .catch((error) => console.log(error));
   }, []);
 
-  const productListHandle = products.map((product) => (
+  const productListHandle = products.map((product: any) => (
     <Table.Row
       key={product.id}
       className="hover:bg-gray-100 dark:hover:bg-gray-700"
@@ -410,7 +415,7 @@ const ProductsTable: FC = function () {
       </Table.Cell>
       <Table.Cell className="space-x-2 whitespace-nowrap p-4">
         <div className="flex items-center gap-x-3">
-          <EditProductModal />
+          <EditProductModal product={product} />
           <DeleteProductModal />
         </div>
       </Table.Cell>
