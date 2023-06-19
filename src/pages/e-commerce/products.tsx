@@ -345,14 +345,12 @@ const EditProductModal: FC = function ({ product }: any) {
 const DeleteProductModal: FC = function () {
   const [isOpen, setOpen] = useState(false);
 
-  
-
   return (
     <>
-      <Button color="failure" onClick={() => setOpen(!isOpen)}>
+      {/* <Button color="failure" onClick={() => handleDate(i)}>
         <HiTrash className="mr-2 text-lg" />
         Delete item
-      </Button>
+      </Button> */}
       <Modal onClose={() => setOpen(false)} show={isOpen} size="md">
         <Modal.Header className="px-3 pt-3 pb-0">
           <span className="sr-only">Delete product</span>
@@ -390,9 +388,14 @@ const ProductsTable: FC = function () {
       })
       .catch((error) => console.log(error));
   }, []);
-  
 
-  const productListHandle = products.map((product: any) => (
+  const deleteItem = (index) => {
+    const filterData = products.filter((item, i) => i !== index);
+    setProducts(filterData);
+    console.log("delete");
+  };
+
+  const productListHandle = products.map((product: any,i) => (
     <Table.Row
       key={product.id}
       className="hover:bg-gray-100 dark:hover:bg-gray-700"
@@ -420,7 +423,11 @@ const ProductsTable: FC = function () {
       <Table.Cell className="space-x-2 whitespace-nowrap p-4">
         <div className="flex items-center gap-x-3">
           <EditProductModal product={product} />
-          <DeleteProductModal />
+
+          <Button color="failure" onClick={() => deleteItem(i)}>
+            <HiTrash className="mr-2 text-lg" />
+            Delete item
+          </Button>
         </div>
       </Table.Cell>
     </Table.Row>
