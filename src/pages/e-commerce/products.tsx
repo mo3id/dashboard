@@ -210,12 +210,22 @@ const AddProductModal: FC = function () {
   );
 };
 
-const EditProductModal: FC = function ({ product }: any) {
+const EditProductModal: FC = function ({ product }: any, {products}) {
   const [isOpen, setOpen] = useState(false);
+
+  console.log(product);
+  console.log(products);
+  
+
+  const handeEditItem = (index: any) => {
+    const tempData = products[index];
+    console.log("tempData", tempData);
+
+  };
 
   return (
     <>
-      <Button color="primary" onClick={() => setOpen(!isOpen)}>
+      <Button color="primary" onClick={() => handeEditItem(i)}>
         <HiPencilAlt className="mr-2 text-lg" />
         Edit item
       </Button>
@@ -389,13 +399,15 @@ const ProductsTable: FC = function () {
       .catch((error) => console.log(error));
   }, []);
 
-  const deleteItem = (index) => {
+  const deleteItem = (index: any) => {
     const filterData = products.filter((item, i) => i !== index);
     setProducts(filterData);
-    console.log("delete");
+    // axios.delete(`/api/data/${id}`).then((response) => {
+    //   setProducts(products.filter((item, i) => i !== index));
+    // });
   };
 
-  const productListHandle = products.map((product: any,i) => (
+  const productListHandle = products.map((product: any, i) => (
     <Table.Row
       key={product.id}
       className="hover:bg-gray-100 dark:hover:bg-gray-700"
@@ -422,7 +434,7 @@ const ProductsTable: FC = function () {
       </Table.Cell>
       <Table.Cell className="space-x-2 whitespace-nowrap p-4">
         <div className="flex items-center gap-x-3">
-          <EditProductModal product={product} />
+          <EditProductModal products={products} product={product} />
 
           <Button color="failure" onClick={() => deleteItem(i)}>
             <HiTrash className="mr-2 text-lg" />
